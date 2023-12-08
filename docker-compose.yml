@@ -1,0 +1,29 @@
+version: '3'
+services:
+  server1:
+    container_name: main-server
+    build:
+      context: ./server1
+    ports:
+      - "80:80"
+    networks:
+      app_net:
+        ipv4_address: 172.16.238.10  # Replace with desired static IP for Server 1
+
+  server2:
+    container_name: blog-server
+    build:
+      context: ./server2
+    ports:
+      - "8080:80"
+    networks:
+      app_net:
+        ipv4_address: 172.16.238.11  # Replace with desired static IP for Server 2
+
+networks:
+  app_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.16.238.0/24
+
